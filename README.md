@@ -150,9 +150,9 @@ Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para má
 
 **Carluis Berrocal**
 - 🌐 Portfolio: [carluisberrocal.netlify.app](https://carluisberrocal.netlify.app)
-- 📧 Email: [carcoste@gmail.com]
-- 💼 LinkedIn: [[carluis-berrocal-237910140](https://www.linkedin.com/in/carluis-berrocal-237910140)]
-- 🐱 GitHub: [@carluis-berrocal]
+- 📧 Email: [carcoste@gmail.com](mailto:carcoste@gmail.com)
+- 💼 LinkedIn: [carluis-berrocal-237910140](https://www.linkedin.com/in/carluis-berrocal-237910140)
+- 🐱 GitHub: [@carluis-berrocal](https://github.com/carluis-berrocal)
 
 ## 🙏 Agradecimientos
 
