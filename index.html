@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐍 Juego de la Culebra</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%234ecdc4;stop-opacity:1' /><stop offset='100%25' style='stop-color:%2374b9ff;stop-opacity:1' /></linearGradient></defs><rect width='100' height='100' fill='%23667eea' rx='15'/><rect x='15' y='25' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='30' y='25' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='45' y='25' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='45' y='40' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='45' y='55' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='30' y='55' width='15' height='15' fill='url(%23grad)' rx='3'/><circle cx='67.5' cy='47.5' r='4' fill='%23ff6b6b'/><circle cx='67.5' cy='47.5' r='2' fill='%23ff4757'/><circle cx='20' cy='30' r='1.5' fill='%23fff'/><circle cx='25' cy='30' r='1.5' fill='%23fff'/></svg>">
+    
+    <!-- Meta tags adicionales -->
+    <meta name="description" content="Juego clásico de la culebra desarrollado por Carluis Berrocal. Responsivo y optimizado para móviles.">
+    <meta name="keywords" content="snake game, juego culebra, javascript game, html5 game">
+    <meta name="author" content="Carluis Berrocal">
+    
+    <!-- Open Graph para redes sociales -->
+    <meta property="og:title" content="🐍 Juego de la Culebra">
+    <meta property="og:description" content="Juego clásico de Snake desarrollado con HTML5, CSS3 y JavaScript. Completamente responsivo.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://carluisberrocal.netlify.app">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="🐍 Juego de la Culebra">
+    <meta name="twitter:description" content="Juego clásico de Snake responsivo desarrollado por Carluis Berrocal">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .game-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 95vw;
+            max-height: 95vh;
+            position: relative;
+        }
+
+        h1 {
+            font-size: clamp(1.5em, 5vw, 2.5em);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .score-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: clamp(0.9em, 3vw, 1.2em);
+            font-weight: bold;
+        }
+
+        #gameCanvas {
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 90vw;
+            max-height: 60vh;
+            width: 400px;
+            height: 400px;
+        }
+
+        .controls {
+            margin-top: 15px;
+            font-size: clamp(0.7em, 2.5vw, 0.9em);
+            opacity: 0.8;
+        }
+
+        .credits {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: clamp(0.7em, 2.5vw, 0.85em);
+            opacity: 0.9;
+        }
+
+        .credits a {
+            color: #74b9ff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .credits a:hover {
+            color: #0984e3;
+            text-shadow: 0 0 10px rgba(116, 185, 255, 0.5);
+        }
+
+        /* Controles táctiles para móviles */
+        .mobile-controls {
+            display: none;
+            margin-top: 20px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .control-pad {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 24px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+        }
+
+        .control-btn:active {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0.95);
+        }
+
+        .control-btn.up { grid-column: 2; grid-row: 1; }
+        .control-btn.left { grid-column: 1; grid-row: 2; }
+        .control-btn.pause { grid-column: 2; grid-row: 2; font-size: 16px; }
+        .control-btn.right { grid-column: 3; grid-row: 2; }
+        .control-btn.down { grid-column: 2; grid-row: 3; }
+
+        /* Media queries para dispositivos móviles */
+        @media (max-width: 768px) {
+            .mobile-controls {
+                display: block;
+            }
+            
+            .controls p:first-child {
+                display: none;
+            }
+            
+            #gameCanvas {
+                width: min(90vw, 350px);
+                height: min(90vw, 350px);
+                max-height: 50vh;
+            }
+            
+            .game-container {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #gameCanvas {
+                width: min(95vw, 300px);
+                height: min(95vw, 300px);
+            }
+            
+            .control-btn {
+                padding: 12px;
+                font-size: 20px;
+                min-height: 45px;
+            }
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .restart-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .pulse {
+            animation: pulse 0.3s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>🐍 Culebra</h1>
+        <div class="score-container">
+            <div>Puntuación: <span id="score">0</span></div>
+            <div>Récord: <span id="highScore">0</span></div>
+        </div>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <div class="mobile-controls">
+            <div class="control-pad">
+                <div class="control-btn up" data-direction="up">↑</div>
+                <div class="control-btn left" data-direction="left">←</div>
+                <div class="control-btn pause" data-action="pause">⏸️</div>
+                <div class="control-btn right" data-direction="right">→</div>
+                <div class="control-btn down" data-direction="down">↓</div>
+            </div>
+        </div>
+        <div class="controls">
+            <p>Usa las flechas del teclado para mover la culebra</p>
+            <p>Presiona ESPACIO para pausar/reanudar</p>
+        </div>
+        <div class="credits">
+            <p>Creado por <a href="https://carluisberrocal.netlify.app" target="_blank">Carluis Berrocal</a></p>
+        </div>
+        <div class="game-over" id="gameOver">
+            <h2>¡Juego Terminado!</h2>
+            <p>Puntuación Final: <span id="finalScore">0</span></p>
+            <button class="restart-btn" onclick="restartGame()">Jugar de Nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const highScoreElement = document.getElementById('highScore');
+        const gameOverElement = document.getElementById('gameOver');
+        const finalScoreElement = document.getElementById('finalScore');
+
+        // Configuración del juego
+        const gridSize = 20;
+        let canvasSize = Math.min(window.innerWidth * 0.9, window.innerHeight * 0.6, 400);
+        
+        // Ajustar canvas según el dispositivo
+        function resizeCanvas() {
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                canvasSize = Math.min(window.innerWidth * 0.95, window.innerHeight * 0.5, 350);
+            } else {
+                canvasSize = 400;
+            }
+            canvas.width = canvasSize;
+            canvas.height = canvasSize;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        const tileCount = Math.floor(canvas.width / gridSize);
+
+        let snake = [
+            {x: 10, y: 10}
+        ];
+        let food = {};
+        let dx = 0;
+        let dy = 0;
+        let score = 0;
+        let highScore = parseInt(localStorage.getItem('snakeHighScore')) || 0;
+        let gameRunning = true;
+        let gamePaused = false;
+
+        // Actualizar récord en pantalla
+        highScoreElement.textContent = highScore;
+
+        // Generar comida aleatoria
+        function randomFood() {
+            food = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * tileCount)
+            };
+        }
+
+        // Dibujar elementos del juego
+        function drawGame() {
+            // Limpiar canvas
+            ctx.fillStyle = 'rgba(20, 20, 40, 0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Dibujar culebra
+            ctx.fillStyle = '#4ecdc4';
+            snake.forEach((segment, index) => {
+                if (index === 0) {
+                    // Cabeza de la culebra con gradiente
+                    const gradient = ctx.createRadialGradient(
+                        segment.x * gridSize + gridSize/2, 
+                        segment.y * gridSize + gridSize/2, 
+                        0,
+                        segment.x * gridSize + gridSize/2, 
+                        segment.y * gridSize + gridSize/2, 
+                        gridSize/2
+                    );
+                    gradient.addColorStop(0, '#6c5ce7');
+                    gradient.addColorStop(1, '#a29bfe');
+                    ctx.fillStyle = gradient;
+                } else {
+                    ctx.fillStyle = '#74b9ff';
+                }
+                
+                ctx.fillRect(segment.x * gridSize + 2, segment.y * gridSize + 2, gridSize - 4, gridSize - 4);
+                ctx.strokeStyle = '#0984e3';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(segment.x * gridSize + 2, segment.y * gridSize + 2, gridSize - 4, gridSize - 4);
+            });
+
+            // Dibujar comida con animación
+            const time = Date.now() * 0.005;
+            const foodScale = 1 + Math.sin(time) * 0.1;
+            const foodSize = (gridSize - 4) * foodScale;
+            const foodOffset = (gridSize - foodSize) / 2;
+            
+            ctx.fillStyle = '#ff6b6b';
+            ctx.beginPath();
+            ctx.arc(
+                food.x * gridSize + gridSize/2,
+                food.y * gridSize + gridSize/2,
+                foodSize/2,
+                0,
+                2 * Math.PI
+            );
+            ctx.fill();
+            
+            ctx.fillStyle = '#ff4757';
+            ctx.beginPath();
+            ctx.arc(
+                food.x * gridSize + gridSize/2,
+                food.y * gridSize + gridSize/2,
+                (foodSize/2) * 0.6,
+                0,
+                2 * Math.PI
+            );
+            ctx.fill();
+        }
+
+        // Actualizar lógica del juego
+        function updateGame() {
+            if (!gameRunning || gamePaused) return;
+
+            // Solo mover si hay dirección establecida
+            if (dx === 0 && dy === 0) return;
+
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+
+            // Verificar colisiones con paredes
+            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+                gameOver();
+                return;
+            }
+
+            // Verificar colisiones con el cuerpo
+            for (let segment of snake) {
+                if (head.x === segment.x && head.y === segment.y) {
+                    gameOver();
+                    return;
+                }
+            }
+
+            snake.unshift(head);
+
+            // Verificar si comió la fruta
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                scoreElement.textContent = score;
+                scoreElement.parentElement.classList.add('pulse');
+                setTimeout(() => {
+                    scoreElement.parentElement.classList.remove('pulse');
+                }, 300);
+                
+                randomFood();
+                
+                // Verificar nuevo récord
+                if (score > highScore) {
+                    highScore = score;
+                    highScoreElement.textContent = highScore;
+                    localStorage.setItem('snakeHighScore', highScore);
+                }
+            } else {
+                snake.pop();
+            }
+        }
+
+        // Terminar juego
+        function gameOver() {
+            gameRunning = false;
+            finalScoreElement.textContent = score;
+            gameOverElement.style.display = 'block';
+        }
+
+        // Reiniciar juego
+        function restartGame() {
+            snake = [{x: 10, y: 10}];
+            dx = 0;
+            dy = 0;
+            score = 0;
+            scoreElement.textContent = score;
+            gameRunning = true;
+            gamePaused = false;
+            gameOverElement.style.display = 'none';
+            randomFood();
+        }
+
+        // Controles del teclado
+        document.addEventListener('keydown', (e) => {
+            if (!gameRunning && e.code !== 'Space') return;
+
+            switch(e.code) {
+                case 'ArrowUp':
+                    if (dy !== 1) {
+                        dx = 0;
+                        dy = -1;
+                    }
+                    break;
+                case 'ArrowDown':
+                    if (dy !== -1) {
+                        dx = 0;
+                        dy = 1;
+                    }
+                    break;
+                case 'ArrowLeft':
+                    if (dx !== 1) {
+                        dx = -1;
+                        dy = 0;
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (dx !== -1) {
+                        dx = 1;
+                        dy = 0;
+                    }
+                    break;
+                case 'Space':
+                    e.preventDefault();
+                    if (gameRunning) {
+                        gamePaused = !gamePaused;
+                    }
+                    break;
+            }
+        });
+
+        // Controles táctiles para móviles
+        document.querySelectorAll('.control-btn').forEach(btn => {
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                
+                const direction = btn.dataset.direction;
+                const action = btn.dataset.action;
+                
+                if (action === 'pause') {
+                    if (gameRunning) {
+                        gamePaused = !gamePaused;
+                    }
+                    return;
+                }
+                
+                if (!gameRunning) return;
+                
+                switch(direction) {
+                    case 'up':
+                        if (dy !== 1) {
+                            dx = 0;
+                            dy = -1;
+                        }
+                        break;
+                    case 'down':
+                        if (dy !== -1) {
+                            dx = 0;
+                            dy = 1;
+                        }
+                        break;
+                    case 'left':
+                        if (dx !== 1) {
+                            dx = -1;
+                            dy = 0;
+                        }
+                        break;
+                    case 'right':
+                        if (dx !== -1) {
+                            dx = 1;
+                            dy = 0;
+                        }
+                        break;
+                }
+            });
+            
+            // También agregar soporte para clicks en escritorio
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const direction = btn.dataset.direction;
+                const action = btn.dataset.action;
+                
+                if (action === 'pause') {
+                    if (gameRunning) {
+                        gamePaused = !gamePaused;
+                    }
+                    return;
+                }
+                
+                if (!gameRunning) return;
+                
+                switch(direction) {
+                    case 'up':
+                        if (dy !== 1) {
+                            dx = 0;
+                            dy = -1;
+                        }
+                        break;
+                    case 'down':
+                        if (dy !== -1) {
+                            dx = 0;
+                            dy = 1;
+                        }
+                        break;
+                    case 'left':
+                        if (dx !== 1) {
+                            dx = -1;
+                            dy = 0;
+                        }
+                        break;
+                    case 'right':
+                        if (dx !== -1) {
+                            dx = 1;
+                            dy = 0;
+                        }
+                        break;
+                }
+            });
+        });
+
+        // Bucle principal del juego
+        function gameLoop() {
+            updateGame();
+            drawGame();
+        }
+
+        // Inicializar juego
+        randomFood();
+        setInterval(gameLoop, 150);
+
+        // Dibujar el estado inicial
+        drawGame();
+    </script>
+</body>
+</html>
