@@ -78,7 +78,6 @@ snake-game/
 │
 ├── index.html          # Archivo principal del juego
 ├── README.md           # Documentación del proyecto
-└── assets/            # (Opcional: para imágenes adicionales)
 ```
 
 ## 🔧 Características Técnicas
