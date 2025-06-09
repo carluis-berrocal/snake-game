@@ -1,7 +1,7 @@
 {
   "name": "Juego de la Culebra",
   "short_name": "Culebra",
-  "description": "Juego clásico de Snake desarrollado por Carluis Berrocal. Completamente responsivo y optimizado para móviles.",
+  "description": "Juego clásico de Snake desarrollado por Carluis Berrocal.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#667eea",
@@ -13,6 +13,7 @@
     "games",
     "entertainment"
   ],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzIiIGhlaWdodD0iNzIiIHZpZXdCb3g9IjAgMCA3MiA3MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjcyIiBoZWlnaHQ9IjcyIiByeD0iMTYiIGZpbGw9IiMwZjBmMGYiLz4KPHBhdGggZD0iTTIwIDI0SDI4VjMySDM2VjQwSDQ0VjQ4SDUyVjQwSDQ0VjMySDM2VjI0SDI4VjE2SDIwVjI0WiIgZmlsbD0iIzAwZmYwMCIvPgo8Y2lyY2xlIGN4PSI0OCIgY3k9IjI0IiByPSI0IiBmaWxsPSIjZmYwMDAwIi8+CjxyZWN0IHg9IjE2IiB5PSIyMCIgd2lkdGg9IjgiIGhlaWdodD0iOCIgcng9IjIiIGZpbGw9IiMwMGZmMDAiLz4KPC9zdmc+",
