@@ -1,28 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🐍 Juego de la Culebra</title>
-    
+
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%234ecdc4;stop-opacity:1' /><stop offset='100%25' style='stop-color:%2374b9ff;stop-opacity:1' /></linearGradient></defs><rect width='100' height='100' fill='%23667eea' rx='15'/><rect x='15' y='25' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='30' y='25' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='45' y='25' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='45' y='40' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='45' y='55' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='30' y='55' width='15' height='15' fill='url(%23grad)' rx='3'/><circle cx='67.5' cy='47.5' r='4' fill='%23ff6b6b'/><circle cx='67.5' cy='47.5' r='2' fill='%23ff4757'/><circle cx='20' cy='30' r='1.5' fill='%23fff'/><circle cx='25' cy='30' r='1.5' fill='%23fff'/></svg>">
-    
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%234ecdc4;stop-opacity:1' /><stop offset='100%25' style='stop-color:%2374b9ff;stop-opacity:1' /></linearGradient></defs><rect width='100' height='100' fill='%23667eea' rx='15'/><rect x='15' y='25' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='30' y='25' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='45' y='25' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='45' y='40' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='45' y='55' width='15' height='15' fill='url(%23grad)' rx='3'/><rect x='30' y='55' width='15' height='15' fill='url(%23grad)' rx='3'/><circle cx='67.5' cy='47.5' r='4' fill='%23ff6b6b'/><circle cx='67.5' cy='47.5' r='2' fill='%23ff4757'/><circle cx='20' cy='30' r='1.5' fill='%23fff'/><circle cx='25' cy='30' r='1.5' fill='%23fff'/></svg>">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- iOS Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Culebra">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM0ZWNkYzQ7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6Izc0YjlmZjtzdG9wLW9wYWNpdHk6MSIgLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjNjY3ZWVhIiByeD0iMzAiLz4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNSwgNjUpIj4KICAgIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNSIgZmlsbD0idXJsKCNncmFkKSIgcng9IjQiLz4KICAgIDxyZWN0IHg9IjMwIiB5PSIwIiB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIGZpbGw9InVybCgjZ3JhZCkiIHJ4PSI0Ii8+CiAgICA8cmVjdCB4PSI2MCIgeT0iMCIgd2lkdGg9IjI1IiBoZWlnaHQ9IjI1IiBmaWxsPSJ1cmwoI2dyYWQpIiByeD0iNCIvPgogICAgPHJlY3QgeD0iNjAiIHk9IjMwIiB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIGZpbGw9InVybCgjZ3JhZCkiIHJ4PSI0Ii8+CiAgICA8cmVjdCB4PSI2MCIgeT0iNjAiIHdpZHRoPSIyNSIgaGVpZ2h0PSIyNSIgZmlsbD0idXJsKCNncmFkKSIgcng9IjQiLz4KICAgIDxyZWN0IHg9IjMwIiB5PSI2MCIgd2lkdGg9IjI1IiBoZWlnaHQ9IjI1IiBmaWxsPSJ1cmwoI2dyYWQpIiByeD0iNCIvPgogICAgPGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMyIgZmlsbD0iI2ZmZiIvPgogICAgPGNpcmNsZSBjeD0iMjAiIGN5PSIxMCIgcj0iMyIgZmlsbD0iI2ZmZiIvPgogICAgPGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMS41IiBmaWxsPSIjMDAwIi8+CiAgICA8Y2lyY2xlIGN4PSIyMCIgY3k9IjEwIiByPSIxLjUiIGZpbGw9IiMwMDAiLz4KICA8L2c+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMTEwIiByPSIxMCIgZmlsbD0iI2ZmNmI2YiIvPgogIDxjaXJjbGUgY3g9IjE0MCIgY3k9IjExMCIgcj0iNiIgZmlsbD0iI2ZmNDc1NyIvPgo8L3N2Zz4=">
+
     <!-- Meta tags adicionales -->
-    <meta name="description" content="Juego clásico de la culebra desarrollado por Carluis Berrocal. Responsivo y optimizado para móviles.">
+    <meta name="description"
+        content="Juego clásico de la culebra desarrollado por Carluis Berrocal. Responsivo y optimizado para móviles.">
     <meta name="keywords" content="snake game, juego culebra, javascript game, html5 game">
     <meta name="author" content="Carluis Berrocal">
-    
+
     <!-- Open Graph para redes sociales -->
     <meta property="og:title" content="🐍 Juego de la Culebra">
-    <meta property="og:description" content="Juego clásico de Snake desarrollado con HTML5, CSS3 y JavaScript. Completamente responsivo.">
+    <meta property="og:description"
+        content="Juego clásico de Snake desarrollado con HTML5, CSS3 y JavaScript. Completamente responsivo.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://carluisberrocal.netlify.app">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="🐍 Juego de la Culebra">
     <meta name="twitter:description" content="Juego clásico de Snake responsivo desarrollado por Carluis Berrocal">
+
+    <!-- Theme colors -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-navbutton-color" content="#667eea">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#667eea">
+
     <style>
         * {
             margin: 0;
@@ -144,30 +164,125 @@
             transform: scale(0.95);
         }
 
-        .control-btn.up { grid-column: 2; grid-row: 1; }
-        .control-btn.left { grid-column: 1; grid-row: 2; }
-        .control-btn.pause { grid-column: 2; grid-row: 2; font-size: 16px; }
-        .control-btn.right { grid-column: 3; grid-row: 2; }
-        .control-btn.down { grid-column: 2; grid-row: 3; }
+        .control-btn.up {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .control-btn.left {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .control-btn.pause {
+            grid-column: 2;
+            grid-row: 2;
+            font-size: 16px;
+        }
+
+        .control-btn.right {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        .control-btn.down {
+            grid-column: 2;
+            grid-row: 3;
+        }
+
+        /* Install button */
+        .install-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .install-btn {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .install-btn.show {
+            display: block;
+            animation: slideInRight 0.5s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Status indicator */
+        .pwa-status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            z-index: 1000;
+            display: none;
+        }
+
+        .pwa-status.online {
+            background: rgba(76, 175, 80, 0.9);
+        }
+
+        .pwa-status.offline {
+            background: rgba(244, 67, 54, 0.9);
+        }
 
         /* Media queries para dispositivos móviles */
         @media (max-width: 768px) {
             .mobile-controls {
                 display: block;
             }
-            
+
             .controls p:first-child {
                 display: none;
             }
-            
+
             #gameCanvas {
                 width: min(90vw, 350px);
                 height: min(90vw, 350px);
                 max-height: 50vh;
             }
-            
+
             .game-container {
                 padding: 15px;
+            }
+
+            .install-container {
+                top: 10px;
+                right: 10px;
+            }
+
+            .install-btn {
+                padding: 8px 16px;
+                font-size: 0.8em;
             }
         }
 
@@ -176,7 +291,7 @@
                 width: min(95vw, 300px);
                 height: min(95vw, 300px);
             }
-            
+
             .control-btn {
                 padding: 12px;
                 font-size: 20px;
@@ -217,13 +332,30 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
+
 <body>
+    <!-- Install button -->
+    <div class="install-container">
+        <button class="install-btn" id="installBtn">📱 Instalar App</button>
+    </div>
+
+    <!-- PWA Status -->
+    <div class="pwa-status" id="pwaStatus">🌐 En línea</div>
+
     <div class="game-container">
         <h1>🐍 Culebra</h1>
         <div class="score-container">
@@ -255,17 +387,134 @@
     </div>
 
     <script>
+        // PWA Variables
+        let deferredPrompt;
+        let isInstalled = false;
+
+        // Game Variables
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const scoreElement = document.getElementById('score');
         const highScoreElement = document.getElementById('highScore');
         const gameOverElement = document.getElementById('gameOver');
         const finalScoreElement = document.getElementById('finalScore');
+        const installBtn = document.getElementById('installBtn');
+        const pwaStatus = document.getElementById('pwaStatus');
+
+        // PWA Functions
+        function initializePWA() {
+            // Registrar Service Worker
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', async () => {
+                    try {
+                        const registration = await navigator.serviceWorker.register('/sw.js', {
+                            scope: '/'
+                        });
+                        console.log('Service Worker registrado exitosamente:', registration.scope);
+
+                        // Verificar actualizaciones
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    showUpdateNotification();
+                                }
+                            });
+                        });
+
+                    } catch (error) {
+                        console.error('Error al registrar Service Worker:', error);
+                    }
+                });
+            }
+
+            // Manejar evento beforeinstallprompt
+            window.addEventListener('beforeinstallprompt', (e) => {
+                console.log('beforeinstallprompt evento disparado');
+                e.preventDefault();
+                deferredPrompt = e;
+                showInstallButton();
+            });
+
+            // Verificar si ya está instalado
+            window.addEventListener('appinstalled', (e) => {
+                console.log('PWA instalada exitosamente');
+                hideInstallButton();
+                showPWAStatus('🚀 App instalada correctamente', 'online');
+                isInstalled = true;
+            });
+
+            // Detectar si es modo standalone (instalada)
+            if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+                isInstalled = true;
+                hideInstallButton();
+            }
+
+            // Monitorear estado de conexión
+            window.addEventListener('online', () => {
+                showPWAStatus('🌐 En línea', 'online');
+            });
+
+            window.addEventListener('offline', () => {
+                showPWAStatus('📴 Sin conexión', 'offline');
+            });
+
+            // Mostrar estado inicial
+            showPWAStatus(navigator.onLine ? '🌐 En línea' : '📴 Sin conexión',
+                navigator.onLine ? 'online' : 'offline');
+        }
+
+        function showInstallButton() {
+            installBtn.classList.add('show');
+        }
+
+        function hideInstallButton() {
+            installBtn.classList.remove('show');
+        }
+
+        function showPWAStatus(message, type) {
+            pwaStatus.textContent = message;
+            pwaStatus.className = `pwa-status ${type}`;
+            pwaStatus.style.display = 'block';
+
+            setTimeout(() => {
+                pwaStatus.style.display = 'none';
+            }, 3000);
+        }
+
+        function showUpdateNotification() {
+            if (confirm('¡Nueva versión disponible! ¿Actualizar ahora?')) {
+                window.location.reload();
+            }
+        }
+
+        // Install button click handler
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                showPWAStatus('⚠️ La instalación no está disponible', 'offline');
+                return;
+            }
+
+            const result = await deferredPrompt.prompt();
+            console.log('Resultado de instalación:', result);
+
+            if (result.outcome === 'accepted') {
+                showPWAStatus('⏳ Instalando aplicación...', 'online');
+            } else {
+                showPWAStatus('❌ Instalación cancelada', 'offline');
+            }
+
+            deferredPrompt = null;
+            hideInstallButton();
+        });
+
+        // Inicializar PWA
+        initializePWA();
 
         // Configuración del juego
         const gridSize = 20;
         let canvasSize = Math.min(window.innerWidth * 0.9, window.innerHeight * 0.6, 400);
-        
+
         // Ajustar canvas según el dispositivo
         function resizeCanvas() {
             const isMobile = window.innerWidth <= 768;
@@ -277,14 +526,14 @@
             canvas.width = canvasSize;
             canvas.height = canvasSize;
         }
-        
+
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
-        
+
         const tileCount = Math.floor(canvas.width / gridSize);
 
         let snake = [
-            {x: 10, y: 10}
+            { x: 10, y: 10 }
         ];
         let food = {};
         let dx = 0;
@@ -317,12 +566,12 @@
                 if (index === 0) {
                     // Cabeza de la culebra con gradiente
                     const gradient = ctx.createRadialGradient(
-                        segment.x * gridSize + gridSize/2, 
-                        segment.y * gridSize + gridSize/2, 
+                        segment.x * gridSize + gridSize / 2,
+                        segment.y * gridSize + gridSize / 2,
                         0,
-                        segment.x * gridSize + gridSize/2, 
-                        segment.y * gridSize + gridSize/2, 
-                        gridSize/2
+                        segment.x * gridSize + gridSize / 2,
+                        segment.y * gridSize + gridSize / 2,
+                        gridSize / 2
                     );
                     gradient.addColorStop(0, '#6c5ce7');
                     gradient.addColorStop(1, '#a29bfe');
@@ -330,7 +579,7 @@
                 } else {
                     ctx.fillStyle = '#74b9ff';
                 }
-                
+
                 ctx.fillRect(segment.x * gridSize + 2, segment.y * gridSize + 2, gridSize - 4, gridSize - 4);
                 ctx.strokeStyle = '#0984e3';
                 ctx.lineWidth = 2;
@@ -342,24 +591,24 @@
             const foodScale = 1 + Math.sin(time) * 0.1;
             const foodSize = (gridSize - 4) * foodScale;
             const foodOffset = (gridSize - foodSize) / 2;
-            
+
             ctx.fillStyle = '#ff6b6b';
             ctx.beginPath();
             ctx.arc(
-                food.x * gridSize + gridSize/2,
-                food.y * gridSize + gridSize/2,
-                foodSize/2,
+                food.x * gridSize + gridSize / 2,
+                food.y * gridSize + gridSize / 2,
+                foodSize / 2,
                 0,
                 2 * Math.PI
             );
             ctx.fill();
-            
+
             ctx.fillStyle = '#ff4757';
             ctx.beginPath();
             ctx.arc(
-                food.x * gridSize + gridSize/2,
-                food.y * gridSize + gridSize/2,
-                (foodSize/2) * 0.6,
+                food.x * gridSize + gridSize / 2,
+                food.y * gridSize + gridSize / 2,
+                (foodSize / 2) * 0.6,
                 0,
                 2 * Math.PI
             );
@@ -373,7 +622,7 @@
             // Solo mover si hay dirección establecida
             if (dx === 0 && dy === 0) return;
 
-            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
             // Verificar colisiones con paredes
             if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
@@ -399,9 +648,9 @@
                 setTimeout(() => {
                     scoreElement.parentElement.classList.remove('pulse');
                 }, 300);
-                
+
                 randomFood();
-                
+
                 // Verificar nuevo récord
                 if (score > highScore) {
                     highScore = score;
@@ -422,7 +671,7 @@
 
         // Reiniciar juego
         function restartGame() {
-            snake = [{x: 10, y: 10}];
+            snake = [{ x: 10, y: 10 }];
             dx = 0;
             dy = 0;
             score = 0;
@@ -437,7 +686,7 @@
         document.addEventListener('keydown', (e) => {
             if (!gameRunning && e.code !== 'Space') return;
 
-            switch(e.code) {
+            switch (e.code) {
                 case 'ArrowUp':
                     if (dy !== 1) {
                         dx = 0;
@@ -475,20 +724,20 @@
         document.querySelectorAll('.control-btn').forEach(btn => {
             btn.addEventListener('touchstart', (e) => {
                 e.preventDefault();
-                
+
                 const direction = btn.dataset.direction;
                 const action = btn.dataset.action;
-                
+
                 if (action === 'pause') {
                     if (gameRunning) {
                         gamePaused = !gamePaused;
                     }
                     return;
                 }
-                
+
                 if (!gameRunning) return;
-                
-                switch(direction) {
+
+                switch (direction) {
                     case 'up':
                         if (dy !== 1) {
                             dx = 0;
@@ -515,24 +764,24 @@
                         break;
                 }
             });
-            
+
             // También agregar soporte para clicks en escritorio
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                
+
                 const direction = btn.dataset.direction;
                 const action = btn.dataset.action;
-                
+
                 if (action === 'pause') {
                     if (gameRunning) {
                         gamePaused = !gamePaused;
                     }
                     return;
                 }
-                
+
                 if (!gameRunning) return;
-                
-                switch(direction) {
+
+                switch (direction) {
                     case 'up':
                         if (dy !== 1) {
                             dx = 0;
@@ -575,4 +824,5 @@
         drawGame();
     </script>
 </body>
+
 </html>
