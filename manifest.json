@@ -45,5 +45,36 @@
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "Nueva Partida",
+      "short_name": "Jugar",
+      "description": "Iniciar una nueva partida",
+      "url": "/",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiI+PHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiBmaWxsPSIjNGVjZGM0IiByeD0iMTUiLz48cG9seWdvbiBwb2ludHM9IjM1LDI1IDY1LDQ4IDM1LDcxIiBmaWxsPSIjZmZmIi8+PC9zdmc+",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOTAgNjAwIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNjY3ZWVhO3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3NjRiYTI7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMzkwIiBoZWlnaHQ9IjYwMCIgZmlsbD0idXJsKCNiZykiLz4KICA8cmVjdCB4PSIyMCIgeT0iNTAiIHdpZHRoPSIzNTAiIGhlaWdodD0iNTAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHJ4PSIyMCIvPgogIDx0ZXh0IHg9IjE5NSIgeT0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjI0IiBmb250LWZhbWlseT0iQXJpYWwiPvCQoI0gQ3VsZWJyYTwvdGV4dD4KICA8dGV4dCB4PSI3MCIgeT0iMTQwIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE0Ij5QdW50dWFjacOzbjogMTIwPC90ZXh0PgogIDx0ZXh0IHg9IjI4MCIgeT0iMTQwIiBmaWxsPSIjZmZmIiBmb250LXNpemU9IjE0Ij5Sw6ljb3JkOiAyMzA8L3RleHQ+CiAgPHJlY3QgeD0iNjAiIHk9IjE2MCIgd2lkdGg9IjI3MCIgaGVpZ2h0PSIyNzAiIGZpbGw9InJnYmEoMCwwLDAsMC4zKSIgcng9IjEwIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC41KSIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAwLCAyMDApIj4KICAgIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzRlY2RjNCIgcng9IjMiLz4KICAgIDxyZWN0IHg9IjI1IiB5PSIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiM3NGI5ZmYiIHJ4PSIzIi8+CiAgICA8cmVjdCB4PSI1MCIgeT0iMCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjNzRiOWZmIiByeD0iMyIvPgogICAgPHJlY3QgeD0iNTAiIHk9IjI1IiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiM3NGI5ZmYiIHJ4PSIzIi8+CiAgICA8cmVjdCB4PSI1MCIgeT0iNTAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzc0YjlmZiIgcng9IjMiLz4KICAgIDxyZWN0IHg9IjI1IiB5PSI1MCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjNzRiOWZmIiByeD0iMyIvPgogICAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iMzUiIHI9IjgiIGZpbGw9IiNmZjZiNmIiLz4KICA8L2c+CiAgPHRleHQgeD0iMTk1IiB5PSI0NzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC44KSIgZm9udC1zaXplPSIxMiI+VXNhIGxhcyBmbGVjaGFzIGRlbCB0ZWNsYWRvPC90ZXh0Pgo8L3N2Zz4=",
+      "sizes": "390x600",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    }
+  ],
+  
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "id": "/culebra-game",
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  }
 }
