@@ -30,7 +30,7 @@ Un juego clásico de Snake desarrollado con HTML5, CSS3 y JavaScript vanilla. Co
 
 ## 🚀 Demo en Vivo
 
-Puedes jugar el juego directamente desde: [[Demo](https://carluis-snake-game.netlify.app/)]
+Puedes jugar el juego directamente desde: [Jugar](https://carluis-snake-game.netlify.app/)
 
 ## 📥 Instalación
 
